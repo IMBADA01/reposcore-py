@@ -77,7 +77,7 @@ def create_client(token: str) -> Client:
 # ── 공통 기여 집계 유틸리티 ─────────────────────────────────────
 
 def _split_repository(repository: str) -> tuple[str, str]:
-    parts = repository.split("/", maxsplit=1)
+    parts = repository.split("/")
 
     if len(parts) != 2 or not parts[0] or not parts[1]:
         raise ValueError("저장소는 owner/repo 형식이어야 합니다.")

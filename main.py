@@ -27,7 +27,7 @@ class OutputFormatOption(str, Enum):
 
 
 def split_repository(repository: str) -> tuple[str, str]:
-    parts = repository.split("/", maxsplit=1)
+    parts = repository.split("/")
 
     if len(parts) != 2 or not parts[0] or not parts[1]:
         raise ValueError("저장소는 owner/repo 형식이어야 합니다.")
@@ -51,9 +51,7 @@ def _load_or_fetch_contributions(
     token: str,
     output: str | None,
 ) -> list[list[UserContributionCounts]]:
-    all_contributions: list[list[UserContributionCounts]] = [
-        [] for _ in repos
-    ]
+    all_contributions: list[list[UserContributionCounts]] = [[] for _ in repos]
     cache_paths: list[Path | None] = []
     missing_indexes: list[int] = []
     missing_repos: list[str] = []
@@ -79,9 +77,7 @@ def _load_or_fetch_contributions(
 
     if missing_repos:
         if len(missing_repos) == 1:
-            fetched_contributions = [
-                fetch_contributions(missing_repos[0], token)
-            ]
+            fetched_contributions = [fetch_contributions(missing_repos[0], token)]
         else:
             fetched_contributions = fetch_multiple_contributions(
                 missing_repos,
